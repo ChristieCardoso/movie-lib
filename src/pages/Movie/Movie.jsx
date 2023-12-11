@@ -14,15 +14,18 @@ import "./Movie.css";
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 
+// Componente Movie
 export const Movie = () => {
-  const { id } = useParams();
-  const [movie, setMovie] = useState(null);
+  const { id } = useParams(); // Obtém o parâmetro 'id' da URL usando o hook useParams
+  const [movie, setMovie] = useState(null); // Cria um estado 'movie' inicializado como nulo
 
+  // Função assíncrona para obter os dados do filme da API
   const getMovie = async (url) => {
-    const res = await fetch(url);
-    const data = await res.json();
-    setMovie(data);
+    const res = await fetch(url); // Faz uma solicitação à API usando a URL fornecida
+    const data = await res.json(); // Converte a resposta em formato JSON
+    setMovie(data); // Atualiza o estado 'movie' com os dados do filme retornados pela API
   };
+
 
   const formatCurrency = (number) => {
     return number.toLocaleString("en-US", {
@@ -32,9 +35,10 @@ export const Movie = () => {
   };
 
   useEffect(() => {
-    const movieUrl = `${moviesURL}${id}?${apiKey}`;
-    getMovie(movieUrl);
+    const movieUrl = `${moviesURL}${id}?${apiKey}`; // Constrói a URL para buscar os dados do filme com base no parâmetro 'id'
+    getMovie(movieUrl); // Chama a função getMovie para obter os dados do filme da API
   }, []);
+
 
   return (
     <div className="movie-page">
